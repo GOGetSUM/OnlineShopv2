@@ -2,20 +2,23 @@ from typing import List
 
 from db import db
 
+
 class ItemModel(db.Model):
-    __tablename__ = "Inventory"
+    __tablename__ = "items"
 
     id = db.Column(db.Integer, primary_key=True)
-    product_name = db.Column(db.String(250), unique=True, nullable=False)
+    name = db.Column(db.String(250), unique=True, nullable=False)
     size = db.Column(db.String(250), nullable=False)
     price = db.Column(db.Float, nullable=False)
     product_desc = db.Column(db.Text, nullable=False)
     location = db.Column(db.String(250), nullable=False)
     inventory = db.Column(db.Integer, nullable=False)
 
+
+
     @classmethod
-    def find_by_name(cls, product_name: str) -> "ItemModel":
-        return cls.query.filter_by(name=product_name).first()
+    def find_by_name(cls, name: str) -> "ItemModel":
+        return cls.query.filter_by(name=name).first()
 
     @classmethod
     def find_all(cls) -> List["ItemModel"]:
@@ -23,9 +26,8 @@ class ItemModel(db.Model):
 
     def save_to_db(self) -> None:
         db.session.add(self)
-        deb.session.commit()
+        db.session.commit()
 
     def delete_from_db(self) -> None:
         db.session.delete(self)
         db.session.commit()
-

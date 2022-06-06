@@ -9,4 +9,3 @@ class ItemSchema(ma.SQLAlchemyAutoSchema):
         load_only = ("",)
         dump_only = ("id",)
         include_fk = True
-

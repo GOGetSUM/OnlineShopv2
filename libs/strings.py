@@ -7,8 +7,9 @@ If language changes, set `libs.strings.default_locale` and run `libs.strings.ref
 """
 import json
 
-default_locale = "en-gb"
+default_locale = "es-es"
 cached_strings = {}
+
 
 def refresh():
     print("Refreshing...")
@@ -16,7 +17,9 @@ def refresh():
     with open(f"strings/{default_locale}.json") as f:
         cached_strings = json.load(f)
 
+
 def gettext(name):
     return cached_strings[name]
+
 
 refresh()
