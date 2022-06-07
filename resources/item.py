@@ -19,7 +19,7 @@ class Item(Resource):
         return {"message": gettext("item_not_found")}, 404
 
     @classmethod
-    @jwt_required(fresh=True)
+    @jwt_required()
     def post(cls, name: str):
         if ItemModel.find_by_name(name):
             return {"message": gettext("item_name_exists").format(name)}, 400
