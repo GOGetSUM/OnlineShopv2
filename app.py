@@ -3,6 +3,7 @@ from flask import Flask, jsonify
 from flask_restful import Api
 from flask_jwt_extended import JWTManager
 from marshmallow import ValidationError
+from dotenv import load_dotenv
 
 from db import db
 from ma import ma
@@ -10,9 +11,11 @@ from blocklist import BLOCKLIST
 from resources.user import UserRegister, UserLogin, User, TokenRefresh, UserLogout
 from resources.item import Item, ItemList
 from resources.confirmation import Confirmation, ConfirmationByUser
+from resources.order import Order
 
 
 app = Flask(__name__)
+load_dotenv(".env")
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["PROPAGATE_EXCEPTIONS"] = True
@@ -53,6 +56,7 @@ api.add_resource(TokenRefresh, "/refresh")
 api.add_resource(UserLogout, "/logout")
 api.add_resource(Confirmation, "/user_confirm/<string:confirmation_id>")
 api.add_resource(ConfirmationByUser, "/confirmation/user/<int:user_id>")
+api.add_resource(Order, "/order")
 
 
 if __name__ == "__main__":

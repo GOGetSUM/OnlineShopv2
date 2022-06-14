@@ -26,5 +26,8 @@
   "user_logged_out": "User <id={user_id}> successfully logged out.",
   "user_not_confirmed": "You have not confirmed registration, please check your email <{}>.",
   "user_error_creating": "Internal server error. Failed to create user.",
-  "user_registered": "Account created successfully, an email with an activation link has been sent to your email address, please check."
+  "user_registered": "Account created successfully, an email with an activation link has been sent to your email address, please check.",
+
+  "order_item_by_id_not_found": "An item <id={}> in this order cannot be found."
+
 }
