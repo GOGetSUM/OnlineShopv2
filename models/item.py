@@ -14,14 +14,12 @@ class ItemModel(db.Model):
     location = db.Column(db.String(250), nullable=False)
     inventory = db.Column(db.Integer, nullable=False)
 
-
-
     @classmethod
     def find_by_name(cls, name: str) -> "ItemModel":
         return cls.query.filter_by(name=name).first()
 
     @classmethod
-    def find_by_id(cls,_id:int) -> "ItemModel":
+    def find_by_id(cls, _id: int) -> "ItemModel":
         return cls.query.filter_by(id=_id).first()
 
     @classmethod

@@ -2,6 +2,7 @@ from collections import Counter
 from flask import request
 from flask_restful import Resource
 
+from  stripe import error
 from libs.strings import gettext
 from models.item import ItemModel
 from models.order import OrderModel, items_to_orders
@@ -9,12 +10,11 @@ from schemas.order import OrderSchema
 
 order_schema = OrderSchema()
 
-class Order(Resource):
 
+class Order(Resource):
     @classmethod
     def get(cls):
         return order_schema.dump(OrderModel.find_all(), many=True), 200
-
 
     @classmethod
     def post(cls):
@@ -33,7 +33,7 @@ class Order(Resource):
         order.save_to_db()
 
         try:
-            order.set_status("failed") #Assume failed until it is complete.
+            order.set_status("failed")  # Assume failed until it is complete.
             # order.charge_with_stripe(data["token"])
             order.set_status("complete")
             return order_schema.dump(order), 200
@@ -53,8 +53,4 @@ class Order(Resource):
             print(e)
             return {"message": gettext("order_error")}, 500
 
-
-
         order.set_status("something")
-
-

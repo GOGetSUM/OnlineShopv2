@@ -55,6 +55,7 @@ class User(Resource):
             return {"message": gettext("user_not_found")}, 404
 
         return user_schema.dump(user), 200
+
     @classmethod
     def delete(cls, user_id: int):
         user = UserModel.find_by_id(user_id)
@@ -63,6 +64,7 @@ class User(Resource):
 
         user.delete_from_db()
         return {"message": gettext("user_deleted")}, 200
+
 
 class UserLogin(Resource):
     @classmethod
@@ -85,6 +87,7 @@ class UserLogin(Resource):
 
         return {"message": gettext("user_invalid_credentials")}, 401
 
+
 class UserLogout(Resource):
     @classmethod
     @jwt_required()
@@ -94,6 +97,7 @@ class UserLogout(Resource):
         BLOCKLIST.add(jti)
         return {"message": gettext("user_logged_out").format(id=user_id)}, 200
 
+
 class TokenRefresh(Resource):
     @classmethod
     @jwt_required(refresh=True)
@@ -101,4 +105,3 @@ class TokenRefresh(Resource):
         current_user = get_jwt_identity()
         new_token = create_access_token(identity=current_user, fresh=False)
         return {"access_token": new_token}, 200
-

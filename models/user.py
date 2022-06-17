@@ -15,9 +15,11 @@ class UserModel(db.Model):
     email = db.Column(db.String(80), nullable=False, unique=True)
 
     confirmation = db.relationship(
-        "ConfirmationModel", lazy="dynamic", cascade="all, delete-orphan",overlaps="user"
+        "ConfirmationModel",
+        lazy="dynamic",
+        cascade="all, delete-orphan",
+        overlaps="user",
     )
-
 
     @property
     def most_recent_confirmation(self) -> "ConfirmationModel":
@@ -42,7 +44,9 @@ class UserModel(db.Model):
             "confirmation", confirmation_id=self.most_recent_confirmation.id
         )
         text = f"Please click the link to confirm your registration: {link}"
-        html = f"<html>Please click the link to confirm your registration: {link} </html>"
+        html = (
+            f"<html>Please click the link to confirm your registration: {link} </html>"
+        )
         return Mailgun.send_email([self.email], subject, text, html)
 
     def save_to_db(self) -> None:

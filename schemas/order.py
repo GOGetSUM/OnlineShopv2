@@ -7,6 +7,7 @@ class OrderSchema(ma.SQLAlchemyAutoSchema):
         model = OrderModel
         load_instance = True
         load_only = ("token",)
-        dump_only = ("id", "status",)
-
-
+        dump_only = (
+            "id",
+            "status",
+        )

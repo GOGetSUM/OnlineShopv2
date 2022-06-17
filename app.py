@@ -20,10 +20,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["PROPAGATE_EXCEPTIONS"] = True
 
-
-app.secret_key = os.environ.get(
-    "APP_SECRET_KEY"
-)  # could do app.config['JWT_SECRET_KEY'] if we prefer
+app.secret_key = os.environ.get("APP_SECRET_KEY")
 api = Api(app)
 
 
@@ -40,11 +37,9 @@ def handle_marshmallow_validation(err):
 jwt = JWTManager(app)
 
 
-# This method will check if a token is blocklisted, and will be called automatically when blocklist is enabled
 @jwt.token_in_blocklist_loader
 def check_if_token_in_blocklist(jwt_header, jwt_payload):
     return jwt_payload["jti"] in BLOCKLIST
-
 
 
 api.add_resource(Item, "/item/<string:name>")
